@@ -1,6 +1,7 @@
 
 ==================== RUTAS PÚBLICAS (SIN AUTENTICACIÓN) ====================
-GET     /                          -> public.index (Selector médicos + calendario semana)
+GET     /                          -> landing (Selección rol Paciente/Médico + navegación)
+GET     /explorar                  -> public.index (Selector médicos + calendario semana)
 GET     /doctors/{doctor}          -> public.doctor (Perfil médico y espacios disponibles)
 GET     /appointments/new          -> public.appointments.new (Formulario para reservar; params: doctor, start)
 POST    /appointments              -> public.appointments.store (Crear cita pendiente)

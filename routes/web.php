@@ -2,15 +2,24 @@
 
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 use App\Http\Controllers\PublicController;
 use App\Http\Controllers\PublicAppointmentController;
 use App\Http\Controllers\DoctorController;
 use App\Http\Controllers\AppointmentController;
 
-// Rutas públicas
-// GET "/": Selector de médico y calendario semanal de disponibilidad
-Route::get('/', [PublicController::class, 'index'])->name('public.index');
+// Landing inicial: elección de rol (Paciente / Médico)
+Route::get('/', function () {
+    return Inertia::render('Landing', [
+        'isAuthenticated' => Auth::check(),
+        'user' => Auth::user(),
+    ]);
+})->name('landing');
+
+// Rutas públicas (explorar disponibilidad y reservar)
+// GET "/explorar": Selector de médico y calendario semanal de disponibilidad
+Route::get('/explorar', [PublicController::class, 'index'])->name('public.index');
 // GET "/doctors/{slug}": Perfil básico y próximos espacios disponibles
 Route::get('/doctors/{doctor}', [PublicController::class, 'doctor'])->name('public.doctor');
 // GET "/appointments/new": Formulario para confirmar datos y reservar

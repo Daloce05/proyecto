@@ -47,11 +47,11 @@ const selectedSlug = ref(props.selectedDoctor?.slug || '')
 function navegarSemana(delta) {
   const fecha = new Date(props.weekStart)
   fecha.setDate(fecha.getDate() + (delta * 7))
-  router.get('/', { week: fecha.toISOString().slice(0,10), doctor: selectedSlug.value }, { preserveState: true })
+  router.get('/explorar', { week: fecha.toISOString().slice(0,10), doctor: selectedSlug.value }, { preserveState: true })
 }
 
 function cargarDisponibilidad() {
-  router.get('/', { week: props.weekStart, doctor: selectedSlug.value }, { preserveState: true })
+  router.get('/explorar', { week: props.weekStart, doctor: selectedSlug.value }, { preserveState: true })
 }
 
 function formatear(iso) {
