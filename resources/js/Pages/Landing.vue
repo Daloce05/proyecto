@@ -27,18 +27,18 @@
           </div>
 
           <!-- Médico Card -->
-            <div class="border rounded-xl p-6 bg-white shadow-sm flex flex-col">
-              <h2 class="text-xl font-semibold mb-2">Soy Médico</h2>
-              <p class="text-sm text-gray-600 mb-4">Accede al panel para ver citas pendientes, confirmadas y tu calendario semanal.</p>
-              <div v-if="isAuthenticated" class="mt-auto flex flex-col gap-3">
-                <button @click="goPanel" class="px-4 py-2 rounded bg-emerald-600 text-white hover:bg-emerald-700">Ir al Panel</button>
-                <button @click="goCalendar" class="px-4 py-2 rounded bg-teal-600 text-white hover:bg-teal-700">Ver Calendario</button>
-              </div>
-              <div v-else class="mt-auto flex flex-col gap-3">
-                <button @click="goLogin" class="px-4 py-2 rounded bg-emerald-600 text-white hover:bg-emerald-700">Iniciar Sesión</button>
-                <button @click="goRegister" class="px-4 py-2 rounded bg-teal-600 text-white hover:bg-teal-700">Registrarme</button>
+          <div class="border rounded-xl p-6 bg-white shadow-sm flex flex-col">
+            <h2 class="text-xl font-semibold mb-2">Soy Médico</h2>
+            <p class="text-sm text-gray-600 mb-4">Accede al panel para ver citas pendientes, confirmadas y tu calendario semanal.</p>
+            <div class="mt-auto flex flex-col gap-3">
+              <!-- Siempre visible: si no está autenticado se redirige a login -->
+              <button @click="goPanel" class="px-4 py-2 rounded bg-emerald-600 text-white hover:bg-emerald-700">Ir al Panel</button>
+              <button @click="goCalendar" class="px-4 py-2 rounded bg-teal-600 text-white hover:bg-teal-700">Ver Calendario</button>
+              <div v-if="!isAuthenticated" class="text-xs text-gray-500">
+                (Necesitas iniciar sesión para ver el calendario)
               </div>
             </div>
+          </div>
         </div>
       </div>
     </section>
@@ -74,6 +74,7 @@ import { router } from '@inertiajs/vue3'
 const props = defineProps({
   isAuthenticated: Boolean,
   user: Object,
+  firstDoctorSlug: String,
 })
 
 function goPaciente() {
@@ -85,11 +86,19 @@ function goReservar() {
   router.get('/explorar')
 }
 function goPanel() {
-  router.get('/home')
+  if (props.isAuthenticated) {
+    router.get('/home')
+  } else {
+    router.get('/login')
+  }
 }
 function goCalendar() {
-  // /calendar exige ?doctor=slug; sin slug lanzaba 404. En landing enviamos al home.
-  router.get('/home')
+  if (props.isAuthenticated && props.firstDoctorSlug) {
+    router.get(`/calendar?doctor=${props.firstDoctorSlug}`)
+  } else {
+    // Si no está autenticado se envía al login
+    router.get('/login')
+  }
 }
 function goLogin() {
   router.get('/login')

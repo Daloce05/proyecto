@@ -15,8 +15,9 @@
           <tr v-for="d in doctors" :key="d.slug">
             <td class="p-2 border">{{ d.name }}</td>
             <td class="p-2 border">{{ d.specialty }}</td>
-            <td class="p-2 border">
-              <a :href="route('panel.doctors.edit', d.slug)" class="text-blue-600">Editar</a>
+            <td class="p-2 border space-y-1">
+              <a :href="route('panel.doctors.edit', d.slug)" class="block text-blue-600 hover:underline">Editar</a>
+              <button @click="verCalendario(d.slug)" class="block text-indigo-600 hover:underline text-sm">Calendario</button>
             </td>
           </tr>
         </tbody>
@@ -29,4 +30,6 @@
 // Comentarios: Listado simple de médicos.
 const props = defineProps({ doctors: Array })
 import HomeButton from '../../Components/HomeButton.vue'
+import { router } from '@inertiajs/vue3'
+function verCalendario(slug) { router.get('/calendar', { doctor: slug }) }
 </script>

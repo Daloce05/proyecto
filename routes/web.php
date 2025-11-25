@@ -4,6 +4,7 @@ use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
+use App\Models\Doctor;
 use App\Http\Controllers\PublicController;
 use App\Http\Controllers\PublicAppointmentController;
 use App\Http\Controllers\DoctorController;
@@ -11,9 +12,12 @@ use App\Http\Controllers\AppointmentController;
 
 // Landing inicial: elección de rol (Paciente / Médico)
 Route::get('/', function () {
+    // Proporcionamos el slug del primer médico para permitir acceso rápido al calendario
+    $firstDoctorSlug = Doctor::orderBy('name')->value('slug');
     return Inertia::render('Landing', [
         'isAuthenticated' => Auth::check(),
         'user' => Auth::user(),
+        'firstDoctorSlug' => $firstDoctorSlug,
     ]);
 })->name('landing');
 
