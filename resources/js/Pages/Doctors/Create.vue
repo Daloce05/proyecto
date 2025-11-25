@@ -1,5 +1,7 @@
 <template>
   <div class="p-6 space-y-4">
+    <HomeButton />
+    <BackLink fallback="/admin/doctors" />
     <h1 class="text-2xl font-bold">Crear médico</h1>
     <form @submit.prevent="submit" class="max-w-md space-y-3">
       <div>
@@ -22,6 +24,8 @@
 <script setup>
 import { router } from '@inertiajs/vue3'
 import { ref } from 'vue'
+import BackLink from '../../Components/BackLink.vue'
+import HomeButton from '../../Components/HomeButton.vue'
 
 const form = ref({ name: '', email: '', specialty: 'Neumología' })
 function submit() { router.post(route('panel.doctors.store'), form.value) }

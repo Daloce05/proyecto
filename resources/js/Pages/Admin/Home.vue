@@ -1,6 +1,7 @@
 <template>
   <!-- Resumen de pendientes y próximas confirmadas con filtro por médico -->
   <div class="p-6 space-y-4">
+    <HomeButton />
     <h1 class="text-2xl font-bold">Panel de administración</h1>
     <div>
       <label class="block text-sm font-medium">Filtrar por médico</label>
@@ -39,6 +40,7 @@
 // Comentarios: Acciones de aceptar/rechazar y filtro por médico.
 import { router } from '@inertiajs/vue3'
 import { ref } from 'vue'
+import HomeButton from '../../Components/HomeButton.vue'
 
 const props = defineProps({
   pending: Array,

@@ -1,5 +1,7 @@
 <template>
   <div class="p-6 space-y-4">
+    <HomeButton />
+    <BackLink fallback="/admin/appointments" />
     <h1 class="text-2xl font-bold">Editar cita</h1>
     <form @submit.prevent="submit" class="max-w-md space-y-3">
       <div>
@@ -22,6 +24,8 @@
 <script setup>
 import { router } from '@inertiajs/vue3'
 import { ref } from 'vue'
+import BackLink from '../../Components/BackLink.vue'
+import HomeButton from '../../Components/HomeButton.vue'
 const props = defineProps({ appointment: Object, doctors: Array })
 const form = ref({ patient_name: props.appointment.patient_name, patient_email: props.appointment.patient_email, notes: props.appointment.notes || '' })
 function submit() { router.put(route('panel.appointments.update', props.appointment.slug), form.value) }

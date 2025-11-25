@@ -1,6 +1,7 @@
 <template>
   <!-- Página pública: selector de médico y calendario semanal -->
   <div class="p-6 space-y-4">
+    <HomeButton />
     <h1 class="text-2xl font-bold">Agendamiento de Citas - Neumología</h1>
     <!-- Selector de médicos -->
     <div>
@@ -33,6 +34,7 @@
 // Comentarios: Componente simple que consume props de Inertia y ofrece navegación semanal y reserva.
 import { router } from '@inertiajs/vue3'
 import { ref } from 'vue'
+import HomeButton from '../../Components/HomeButton.vue'
 
 const props = defineProps({
   doctors: Array,

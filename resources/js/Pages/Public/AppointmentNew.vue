@@ -1,6 +1,8 @@
 <template>
   <!-- Formulario para confirmar datos y reservar -->
   <div class="p-6 space-y-4">
+    <HomeButton />
+    <BackLink fallback="/explorar" />
     <h1 class="text-2xl font-bold">Reservar cita con {{ doctor.name }}</h1>
     <p>Horario seleccionado: <strong>{{ formatear(start) }}</strong> ({{ duration }} minutos)</p>
 
@@ -26,6 +28,8 @@
 // Comentarios: Envia POST a /appointments creando cita en estado pendiente.
 import { router } from '@inertiajs/vue3'
 import { ref } from 'vue'
+import BackLink from '../../Components/BackLink.vue'
+import HomeButton from '../../Components/HomeButton.vue'
 
 const props = defineProps({
   doctor: Object,

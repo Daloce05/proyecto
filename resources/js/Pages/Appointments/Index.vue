@@ -1,5 +1,6 @@
 <template>
   <div class="p-6">
+    <HomeButton />
     <h1 class="text-2xl font-bold">Citas</h1>
     <div class="mt-4">
       <table class="min-w-full border">
@@ -27,4 +28,5 @@
 <script setup>
 const props = defineProps({ appointments: Object })
 function formatear(iso) { const d = new Date(iso); return d.toLocaleString() }
+import HomeButton from '../../Components/HomeButton.vue'
 </script>

@@ -1,6 +1,8 @@
 <template>
   <!-- Calendario semanal del panel: muestra citas pendientes y confirmadas -->
   <div class="p-6 space-y-4">
+    <HomeButton />
+    <BackLink fallback="/home" />
     <h1 class="text-2xl font-bold">Calendario semanal — {{ doctor.name }}</h1>
     <div class="flex items-center gap-2">
       <button class="px-3 py-1 bg-gray-200 rounded" @click="navegarSemana(-1)">Semana anterior</button>
@@ -20,6 +22,8 @@
 
 <script setup>
 import { router } from '@inertiajs/vue3'
+import BackLink from '../../Components/BackLink.vue'
+import HomeButton from '../../Components/HomeButton.vue'
 
 const props = defineProps({
   doctor: Object,

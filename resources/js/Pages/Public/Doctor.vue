@@ -1,6 +1,8 @@
 <template>
   <!-- Perfil del médico y próximos espacios disponibles -->
   <div class="p-6 space-y-4">
+    <HomeButton />
+    <BackLink fallback="/explorar" />
     <h1 class="text-2xl font-bold">{{ doctor.name }} — {{ doctor.specialty }}</h1>
     <p class="text-gray-600">Correo: {{ doctor.email || 'N/A' }}</p>
 
@@ -24,6 +26,8 @@
 <script setup>
 // Comentarios: Componente público que muestra disponibilidad semanal por médico.
 import { router } from '@inertiajs/vue3'
+import BackLink from '../../Components/BackLink.vue'
+import HomeButton from '../../Components/HomeButton.vue'
 
 const props = defineProps({
   doctor: Object,

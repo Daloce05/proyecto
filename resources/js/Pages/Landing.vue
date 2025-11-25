@@ -80,13 +80,16 @@ function goPaciente() {
   router.get('/explorar')
 }
 function goReservar() {
-  router.get('/appointments/new')
+  // Antes apuntaba a /appointments/new sin parámetros y causaba 404.
+  // Redirigimos al explorador donde el paciente puede elegir médico y horario.
+  router.get('/explorar')
 }
 function goPanel() {
   router.get('/home')
 }
 function goCalendar() {
-  router.get('/calendar')
+  // /calendar exige ?doctor=slug; sin slug lanzaba 404. En landing enviamos al home.
+  router.get('/home')
 }
 function goLogin() {
   router.get('/login')
