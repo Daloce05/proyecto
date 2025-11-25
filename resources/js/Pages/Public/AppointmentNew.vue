@@ -1,26 +1,50 @@
 <template>
-  <!-- Formulario para confirmar datos y reservar -->
-  <div class="p-6 space-y-4">
-    <HomeButton />
-    <BackLink fallback="/explorar" />
-    <h1 class="text-2xl font-bold">Reservar cita con {{ doctor.name }}</h1>
-    <p>Horario seleccionado: <strong>{{ formatear(start) }}</strong> ({{ duration }} minutos)</p>
+  <div class="min-h-screen bg-gradient-to-br from-blue-50 via-white to-indigo-50">
+    <div class="max-w-4xl mx-auto px-6 py-10 space-y-8">
+      <div class="flex items-start justify-between">
+        <div class="space-y-1">
+          <h1 class="text-3xl font-extrabold text-gray-800">Reservar cita</h1>
+          <p class="text-sm text-gray-500">Completa tus datos para confirmar la solicitud.</p>
+        </div>
+        <div class="flex gap-2">
+          <HomeButton />
+          <BackLink fallback="/explorar" />
+        </div>
+      </div>
 
-    <form @submit.prevent="submit" class="space-y-3 max-w-md">
-      <div>
-        <label class="block text-sm">Nombre del paciente</label>
-        <input v-model="form.patient_name" class="mt-1 w-full border rounded p-2" required />
+      <!-- Resumen selección -->
+      <div class="rounded-2xl border bg-white/80 backdrop-blur p-6 shadow-sm flex flex-col md:flex-row gap-6">
+        <div class="flex-1 space-y-2">
+          <h2 class="text-sm font-semibold uppercase tracking-wide text-gray-600">Profesional</h2>
+          <p class="text-lg font-medium text-gray-800">{{ doctor.name }}</p>
+          <p class="text-xs text-blue-700 font-semibold inline-block bg-blue-100 rounded px-2 py-0.5">{{ doctor.specialty }}</p>
+        </div>
+        <div class="flex-1 space-y-2">
+          <h2 class="text-sm font-semibold uppercase tracking-wide text-gray-600">Horario Seleccionado</h2>
+            <p class="text-lg font-medium text-gray-800">{{ formatear(start) }}</p>
+            <p class="text-xs text-gray-500">Duración estimada: {{ duration }} min</p>
+        </div>
       </div>
-      <div>
-        <label class="block text-sm">Correo electrónico</label>
-        <input v-model="form.patient_email" type="email" class="mt-1 w-full border rounded p-2" required />
-      </div>
-      <div>
-        <label class="block text-sm">Notas (opcional)</label>
-        <textarea v-model="form.notes" class="mt-1 w-full border rounded p-2" />
-      </div>
-      <button class="px-4 py-2 bg-blue-600 text-white rounded">Confirmar reserva</button>
-    </form>
+
+      <!-- Formulario -->
+      <form @submit.prevent="submit" class="rounded-2xl border bg-white/90 backdrop-blur p-6 shadow-sm space-y-5 max-w-xl">
+        <div class="space-y-1">
+          <label class="block text-xs font-semibold uppercase tracking-wide text-gray-600">Nombre del paciente</label>
+          <input v-model="form.patient_name" class="w-full rounded-lg border px-3 py-2 text-sm focus:ring-blue-400 focus:border-blue-400" required />
+        </div>
+        <div class="space-y-1">
+          <label class="block text-xs font-semibold uppercase tracking-wide text-gray-600">Correo electrónico</label>
+          <input v-model="form.patient_email" type="email" class="w-full rounded-lg border px-3 py-2 text-sm focus:ring-blue-400 focus:border-blue-400" required />
+        </div>
+        <div class="space-y-1">
+          <label class="block text-xs font-semibold uppercase tracking-wide text-gray-600">Notas (opcional)</label>
+          <textarea v-model="form.notes" rows="3" class="w-full rounded-lg border px-3 py-2 text-sm focus:ring-blue-400 focus:border-blue-400" />
+        </div>
+        <button class="w-full inline-flex items-center justify-center gap-2 px-4 py-2.5 bg-blue-600 text-white rounded-lg text-sm font-semibold hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400">
+          Confirmar reserva
+        </button>
+      </form>
+    </div>
   </div>
 </template>
 
